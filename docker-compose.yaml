@@ -1,0 +1,38 @@
+version:  '3'
+
+services:
+  postgres:
+    image: postgres:15.1
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_vol:/var/lib/postgresql/data
+    networks:
+      - postgres_net
+    environment: 
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: postgrespwd
+
+  pgadmin:
+    image: dpage/pgadmin4:6.19
+    ports:
+      - 8080:80
+    networks:
+      - postgres_net
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com   
+      PGADMIN_DEFAULT_PASSWORD: pgadminpwd
+
+
+volumes:
+  postgres_vol:
+
+networks:
+  postgres_net:
+    driver: bridge
+
+
+
+
+
